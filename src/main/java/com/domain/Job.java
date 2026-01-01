@@ -1,17 +1,11 @@
 package com.domain;
 
-import com.core.RetryPolicy;
+import com.infra.InfraJobContext;
 
-import java.time.Duration;
-import java.util.Set;
+public interface Job {
+    void prepare(JobContext context, InfraJobContext infraContext) throws Exception;
 
-public interface Job<C extends JobContext> {
-    String id();
-    Set<String> requiredLocks();
-    Duration timeout();
-    RetryPolicy retryPolicy();
+    void execute(JobContext context, InfraJobContext infraContext) throws Exception;
 
-    void prepare(C context);
-    void execute(C context);
-    void rollback(C context);
+    void rollback(JobContext context, InfraJobContext infraContext, Exception cause);
 }
