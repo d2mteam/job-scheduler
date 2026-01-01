@@ -31,6 +31,6 @@ public final class JobContext {
     }
 
     public List<Resource> resources() {
-        return Collections.unmodifiableList(resources);
+        return resources;
     }
 }
