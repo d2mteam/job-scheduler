@@ -38,12 +38,15 @@ public class JobRunner {
                 auditLogger.jobStateChanged(context.id(), JobState.SUCCESS, "completed");
                 return JobState.SUCCESS;
             } catch (LockRegistry.DeadlockException deadlockException) {
+                lockRegistry.clearJob(context.id());
                 auditLogger.jobStateChanged(context.id(), JobState.FAILED, deadlockException.getMessage());
                 return JobState.FAILED;
             } catch (LockRegistry.LockTimeoutException timeoutException) {
+                lockRegistry.clearJob(context.id());
                 auditLogger.jobStateChanged(context.id(), JobState.TIMEOUT, timeoutException.getMessage());
                 return JobState.TIMEOUT;
             } catch (TimeoutException timeoutException) {
+                lockRegistry.clearJob(context.id());
                 auditLogger.jobStateChanged(context.id(), JobState.TIMEOUT, timeoutException.getMessage());
                 return JobState.TIMEOUT;
             } catch (Exception exception) {
