@@ -1,4 +1,4 @@
-package com.domain;
+package com.core;
 
 public enum JobState {
     PENDING,
