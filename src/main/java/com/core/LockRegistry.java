@@ -55,6 +55,10 @@ public class LockRegistry {
         return new LockHandle(jobId, acquired);
     }
 
+    public void clearJob(String jobId) {
+        lockGraphEngine.clear(jobId);
+    }
+
     public final class LockHandle implements AutoCloseable {
         private final String jobId;
         private final List<Resource> acquired;
